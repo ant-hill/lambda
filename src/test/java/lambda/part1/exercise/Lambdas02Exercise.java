@@ -1,9 +1,11 @@
 package lambda.part1.exercise;
 
+import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 import data.Person;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -17,7 +19,7 @@ public class Lambdas02Exercise {
                 new Person("name 1", "lastName 2", 40),
                 new Person("name 2", "lastName 1", 30)
         };
-
+        Arrays.sort(persons, ((o1, o2) -> o1.getAge() - o2.getAge()));
         // TODO use Arrays.sort
 
         assertArrayEquals(persons, new Person[]{
@@ -35,9 +37,8 @@ public class Lambdas02Exercise {
                 new Person("name 2", "lastName 1", 30)
         );
 
-        Person person = null;
-
         // TODO use FluentIterable
+        Person person = FluentIterable.from(persons).firstMatch(person1 -> person1.getFirstName() == "name 1").get();
 
         assertEquals(person, new Person("name 1", "lastName 2", 30));
     }
